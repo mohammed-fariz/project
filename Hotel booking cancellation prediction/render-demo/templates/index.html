@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Booking Cancellation Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 1.5em;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+            min-width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Hotel Booking Cancellation Prediction</h2>
+        <form action="/predict" method="post">
+            <div class="columns">
+                <div class="column">
+                    <div class="form-group">
+                        <label for="lead_time">Lead Time (days before arrival):</label>
+                        <input type="number" name="lead_time" min="0" required>
+                        <div class="info-text">Number of days between booking and arrival</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <select name="country" required>
+                            <option value="0">PRT (Portugal)</option>
+                            <option value="1">GBR (United Kingdom)</option>
+                            <option value="2">USA (United States)</option>
+                            <option value="3">ESP (Spain)</option>
+                            <option value="4">IRL (Ireland)</option>
+                            <option value="5">FRA (France)</option>
+                            <option value="6">ROU (Romania)</option>
+                            <option value="7">NOR (Norway)</option>
+                            <option value="8">OMN (Oman)</option>
+                            <option value="9">ARG (Argentina)</option>
+                            <option value="10">POL (Poland)</option>
+                            <option value="11">DEU (Germany)</option>
+                            <option value="12">BEL (Belgium)</option>
+                            <option value="13">CHE (Switzerland)</option>
+                            <option value="14">CN (China)</option>
+                            <option value="15">GRC (Greece)</option>
+                            <option value="16">ITA (Italy)</option>
+                            <option value="17">NLD (Netherlands)</option>
+                            <option value="18">DNK (Denmark)</option>
+                            <option value="19">RUS (Russia)</option>
+                            <option value="20">SWE (Sweden)</option>
+                            <option value="21">AUS (Australia)</option>
+                            <option value="22">EST (Estonia)</option>
+                            <option value="23">CZE (Czech Republic)</option>
+                            <option value="24">BRA (Brazil)</option>
+                            <option value="25">FIN (Finland)</option>
+                            <option value="26">Other Countries</option>
+                        </select>
+                        <div class="info-text">Select country of origin</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="market_segment">Market Segment:</label>
+                        <select name="market_segment" required>
+                            <option value="0">Online Travel Agent</option>
+                            <option value="1">Offline Travel Agent/Operator</option>
+                            <option value="2">Direct</option>
+                            <option value="3">Corporate</option>
+                            <option value="4">Groups</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="previous_cancellations">Previous Cancellations:</label>
+                        <input type="number" name="previous_cancellations" min="0" required value="0">
+                        <div class="info-text">Number of previous bookings cancelled by the customer</div>
+                    </div>
+                </div>
+                
+                <div class="column">
+                    <div class="form-group">
+                        <label for="deposit_type">Deposit Type:</label>
+                        <select name="deposit_type" required>
+                            <option value="0">No Deposit</option>
+                            <option value="1">Non-Refundable</option>
+                            <option value="2">Refundable</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="agent">Agent:</label>
+                        <select name="agent" required>
+                            <option value="0">No Agent</option>
+                            <option value="1">Agent 1</option>
+                            <option value="2">Agent 2</option>
+                            <option value="3">Agent 3</option>
+                            <option value="4">Agent 4</option>
+                            <option value="5">Agent 5</option>
+                            <option value="6">Other Agent</option>
+                        </select>
+                        <div class="info-text">ID of the travel agency making the booking</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customer_type">Customer Type:</label>
+                        <select name="customer_type" required>
+                            <option value="0">Transient</option>
+                            <option value="1">Contract</option>
+                            <option value="2">Transient-Party</option>
+                            <option value="3">Group</option>
+                        </select>
+                        <div class="info-text">Type of booking customer</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="required_car_parking_spaces">Required Car Parking Spaces:</label>
+                        <input type="number" name="required_car_parking_spaces" min="0" max="10" required value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="total_of_special_requests">Total Special Requests:</label>
+                        <input type="number" name="total_of_special_requests" min="0" max="5" required value="0">
+                        <div class="info-text">Number of special requests made by the customer</div>
+                    </div>
+                </div>
+            </div>
+            
+            <input type="submit" value="Predict Cancellation Probability">
+        </form>
+        {% if prediction_text %}
+        <div class="result" style="background-color: {% if 'Not Cancelled' in prediction_text %}#d4edda{% else %}#f8d7da{% endif %};">
+            {{ prediction_text|safe }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
