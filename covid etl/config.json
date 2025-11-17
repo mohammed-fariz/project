@@ -1,0 +1,38 @@
+{
+    "EXCEL_FILE_PATH": "/opt/airflow/data/COVID19_India_Large_Dataset_Uncleaned.xlsx",
+    "file_name": "COVID19_India_Large_Dataset_Uncleaned.xlsx",
+    "POSTGRES_CONN_ID": "Postgresql",
+    "DATASETS": [
+        {
+            "sheet_name": "Daily COVID Cases",
+            "table_name": "daily_covid_cases_EXT",
+            "required_columns": ["Patient ID", "State", "Date", "Confirmed Cases", "Recovered Cases", "Death Cases"]
+        },
+        {
+            "sheet_name": "Vaccination Data",
+            "table_name": "vaccination_data_EXT",
+            "required_columns": ["Patient ID", "Age", "Gender", "State", "Date of Vaccination", "Vaccine Type", "Dose Number", "Reported Side Effects", "Doses Distributed", "Doses Used"]
+        },
+        {
+            "sheet_name": "Hospital Infrastructure",
+            "table_name": "hospital_infrastructure_EXT",
+            "required_columns":["State", "Patient Id", "Date", "Government Hospitals", "Total Beds Available",
+                    "Total Beds Occupied", "Bed Occupancy Rate (%)", "Oxygen Availability (Cylinders)"]
+        },
+        {
+            "sheet_name": "Testing Lab Data",
+            "table_name": "testing_lab_data_EXT",
+            "required_columns": ["State", "Region", "Test Conducted Date", "Total Tests", "Positive Cases", "Negative Cases"]
+        },
+        {
+            "sheet_name": "Population Data",
+            "table_name": "population_data_EXT",
+            "required_columns": ["State", "Region", "Total Population"]
+        },
+        {
+            "sheet_name": "Post-Vaccination Data",
+            "table_name": "post_vaccination_data_EXT",
+            "required_columns": ["Patient ID", "State", "Date", "Health Issue", "Severity Level"]
+        }
+    ]
+}
