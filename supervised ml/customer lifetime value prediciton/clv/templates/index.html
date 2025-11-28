@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Lifetime Value Prediction</title>
+</head>
+<body>
+    <h2>CLV Prediction Form</h2>
+    <form method="POST" action="/predict">
+        {% for feature in features %}
+        <label>{{ feature }}:</label>
+        <input type="text" name="{{ feature }}" value="0"><br><br>
+        {% endfor %}
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+    <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
