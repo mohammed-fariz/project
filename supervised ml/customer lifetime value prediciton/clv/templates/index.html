@@ -3,19 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer Lifetime Value Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        form input[type="text"], form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        form input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .prediction {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <h2>CLV Prediction Form</h2>
-    <form method="POST" action="/predict">
-        {% for feature in features %}
-        <label>{{ feature }}:</label>
-        <input type="text" name="{{ feature }}" value="0"><br><br>
-        {% endfor %}
-        <input type="submit" value="Predict">
-    </form>
+    <div class="container">
+        <h2>Customer Lifetime Value Prediction</h2>
+        <form method="POST" action="/predict">
+            <!-- Numerical Features -->
+            <label>Unit_Price:</label>
+            <input type="text" name="Unit_Price" value="0">
 
-    {% if prediction_text %}
-    <h3>{{ prediction_text }}</h3>
-    {% endif %}
+            <label>Quantity:</label>
+            <input type="text" name="Quantity" value="0">
+
+            <label>Discount_Amount:</label>
+            <input type="text" name="Discount_Amount" value="0">
+
+            <label>Total_Amount:</label>
+            <input type="text" name="Total_Amount" value="0">
+
+            <!-- Categorical Features (0/1 dropdowns for one-hot encoding) -->
+            <label>City_Antalya:</label>
+            <select name="City_Antalya">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Books:</label>
+            <select name="Product_Category_Books">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Electronics:</label>
+            <select name="Product_Category_Electronics">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Fashion:</label>
+            <select name="Product_Category_Fashion">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Food:</label>
+            <select name="Product_Category_Food">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Home & Garden:</label>
+            <select name="Product_Category_Home & Garden">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Sports:</label>
+            <select name="Product_Category_Sports">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Product_Category_Toys:</label>
+            <select name="Product_Category_Toys">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <label>Device_Type_Tablet:</label>
+            <select name="Device_Type_Tablet">
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+            <div class="prediction">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
 </body>
 </html>
