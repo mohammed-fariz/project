@@ -16,11 +16,13 @@ model = joblib.load(model_path)
 # -------------------------------
 # Define expected features
 # -------------------------------
-features = [
-    'Unit_Price', 'Quantity', 'Discount_Amount', 'Total_Amount', 'City_Antalya', 
-    'Product_Category_Books', 'Product_Category_Electronics', 'Product_Category_Fashion',
-      'Product_Category_Food', 'Product_Category_Home & Garden', 'Product_Category_Sports', 
-      'Product_Category_Toys', 'Device_Type_Tablet'
+features =  [
+    'Unit_Price',
+    'Discount_Amount',
+    'Quantity',
+    
+    'Payment_Method',
+    'Product_Category'
 ]
 
 # -------------------------------

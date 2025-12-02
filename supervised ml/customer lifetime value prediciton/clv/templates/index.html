@@ -2,152 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Customer Lifetime Value Prediction</title>
+    <title>CLV Prediction</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
+        body { font-family: Arial; background: #f3f3f3; padding: 20px; }
+        .box {
+            width: 450px; margin: auto; background: white; padding: 20px;
+            border-radius: 10px; box-shadow: 0 0 10px #bbb;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 40px 50px;
-            border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        input, select {
+            width: 100%; padding: 10px; margin: 8px 0; border-radius: 5px;
         }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
+        button {
+            width: 100%; padding: 12px; background: green; color: white;
+            border: none; border-radius: 5px; cursor: pointer;
         }
-
-        form label {
-            display: block;
-            font-weight: bold;
-            margin-top: 15px;
-            color: #555;
-        }
-
-        form input[type="text"], form select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        form input[type="submit"] {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 25px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        form input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        .prediction {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
+        button:hover { background: darkgreen; }
+        h2 { text-align: center; }
+        .result { text-align: center; margin-top: 20px; color: blue; font-size: 20px; }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h2>Customer Lifetime Value Prediction</h2>
-        <form method="POST" action="/predict">
-            <!-- Numerical Features -->
-            <label>Unit_Price:</label>
-            <input type="text" name="Unit_Price" value="0">
+<div class="box">
+    <h2>CLV Prediction (6 Features)</h2>
 
-            <label>Quantity:</label>
-            <input type="text" name="Quantity" value="0">
+    <form action="/predict" method="POST">
 
-            <label>Discount_Amount:</label>
-            <input type="text" name="Discount_Amount" value="0">
+        <label>Unit Price</label>
+        <input type="number" step="0.01" name="Unit_Price" required>
 
-            <label>Total_Amount:</label>
-            <input type="text" name="Total_Amount" value="0">
+        <label>Discount Amount</label>
+        <input type="number" step="0.01" name="Discount_Amount" required>
 
-            <!-- Categorical Features (0/1 dropdowns for one-hot encoding) -->
-            <label>City_Antalya:</label>
-            <select name="City_Antalya">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
+        <label>Quantity</label>
+        <input type="number" name="Quantity" required>
 
-            <label>Product_Category_Books:</label>
-            <select name="Product_Category_Books">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
+        <label>Gender</label>
+        <select name="Gender">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
 
-            <label>Product_Category_Electronics:</label>
-            <select name="Product_Category_Electronics">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
+        <label>Payment Method</label>
+        <select name="Payment_Method">
+            <option value="0">Credit Card</option>
+            <option value="1">Debit Card</option>
+            <option value="2">UPI</option>
+            <option value="3">Cash on Delivery</option>
+        </select>
 
-            <label>Product_Category_Fashion:</label>
-            <select name="Product_Category_Fashion">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
+        <label>Product Category</label>
+        <select name="Product_Category">
+            <option value="0">Electronics</option>
+            <option value="1">Clothing</option>
+            <option value="2">Beauty</option>
+            <option value="3">Grocery</option>
+        </select>
 
-            <label>Product_Category_Food:</label>
-            <select name="Product_Category_Food">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
+        <button type="submit">Predict CLV</button>
+    </form>
 
-            <label>Product_Category_Home & Garden:</label>
-            <select name="Product_Category_Home & Garden">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
-
-            <label>Product_Category_Sports:</label>
-            <select name="Product_Category_Sports">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
-
-            <label>Product_Category_Toys:</label>
-            <select name="Product_Category_Toys">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
-
-            <label>Device_Type_Tablet:</label>
-            <select name="Device_Type_Tablet">
-                <option value="0">0</option>
-                <option value="1">1</option>
-            </select>
-
-            <input type="submit" value="Predict">
-        </form>
-
-        {% if prediction_text %}
-            <div class="prediction">{{ prediction_text }}</div>
-        {% endif %}
-    </div>
+    {% if prediction_text %}
+    <p class="result">{{ prediction_text }}</p>
+    {% endif %}
+</div>
 </body>
 </html>
